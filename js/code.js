@@ -3,7 +3,13 @@ const celeste = document.getElementById('celeste')
 const violeta = document.getElementById('violeta')
 const naranja = document.getElementById('naranja')
 const verde = document.getElementById('verde')
-const ULTIMO_NIVEL = 10
+
+const sound1 = new Audio('sounds/1-do.mp3')
+const sound2 = new Audio('sounds/2-re.mp3')
+const sound3 = new Audio('sounds/3-mi.mp3')
+const sound4 = new Audio('sounds/4-fa.mp3')
+
+var nivelUsuario = 10
 
 class Juego {
     constructor() {
@@ -26,13 +32,14 @@ class Juego {
     }
 
     generarSecuencia() {
-        this.secuencia = new Array(ULTIMO_NIVEL).fill(0).map(n => Math.floor(Math.random() * 4))
+        this.secuencia = new Array(nivelUsuario).fill(0).map(n => Math.floor(Math.random() * 4))
     }
 
     siguienteNivel() {
         this.subnivel = 0
         this.iluminarSecuencia()
         this.agregarEventosClick()
+        this.contador(this.nivel)
     }
 
     numeroAColor(numero) {
@@ -70,6 +77,7 @@ class Juego {
 
     iluminarColor(color) {
         this.colores[color].classList.add('light')
+        this.playAudio(color)
         setTimeout(() => this.apagarColor(color), 350)
     }
 
@@ -95,12 +103,13 @@ class Juego {
         const nombreColor = ev.target.dataset.color
         const numeroColor = this.colorANumero(nombreColor)
         this.iluminarColor(nombreColor)
+        this.playAudio(nombreColor)
         if (numeroColor === this.secuencia[this.subnivel]) {
             this.subnivel++
             if (this.subnivel === this.nivel) {
                 this.nivel++
                 this.eliminarEventosClick()
-                if(this.nivel === (ULTIMO_NIVEL+1)){
+                if(this.nivel === (nivelUsuario+1)){
                     this.ganarJuego()
                 } else{
                     setTimeout(() => this.siguienteNivel(), 1000)
@@ -111,14 +120,35 @@ class Juego {
         }
     }
 
+    playAudio(nombreColor) {
+        switch (nombreColor) {
+            case 'celeste':
+                sound1.play()
+            break
+            case 'violeta':
+                sound2.play()
+            break
+            case 'naranja':
+                sound3.play()
+            break
+            case 'verde':
+                sound4.play()
+            break
+        }
+    }
+
     ganarJuego(){
-        swal('Has ganado 🎉', `Has terminado los ${ULTIMO_NIVEL} niveles del juego. ¡Felicidades!`, 'success')
+        swal('Has ganado 🎉', `Has terminado los ${nivelUsuario} niveles del juego. ¡Felicidades!`, 'success')
             .then(() => location.reload())
     }
 
     perderJuego(){
         swal('Has perdido 😥', 'Has perdido, sigue intentando', 'error')
             .then(() => location.reload())
+    }
+
+    contador(nivelActual){
+        document.getElementById('contador-nivel').innerHTML = `Nivel: ${nivelActual}`
     }
 }
 

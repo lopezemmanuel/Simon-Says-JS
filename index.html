@@ -4,18 +4,30 @@
 <head>
     <meta charset="utf-8">
     <title>Simon Dice</title>
+    <script src="https://kit.fontawesome.com/6dd9d637c7.js" crossorigin="anonymous"></script>
     <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/main.css">
+    <link rel="icon" href="favicon.ico" >
 </head>
 
 <body>
+
     <div class="gameboard">
         <div id="celeste" class="color celeste left" data-color="celeste"></div>
         <div id="violeta" class="color violeta right" data-color="violeta"></div>
         <div id="naranja" class="color naranja left" data-color="naranja"></div>
         <div id="verde" class="color verde right" data-color="verde"></div>
-        <button id="btnEmpezar" class="btn-start" onclick="empezarJuego()">Empieza a jugar!</button>
+        <button id="btnEmpezar" class="btn-start" onclick="empezarJuego()"> ¡Empieza a jugar!</button>
     </div>
+
+    <div class="github">
+        <a href="https://github.com/lopezemmanuel" target="_blank"><i class="fab fa-github"></i></a>
+    </div>
+
+    <div class="level">
+        <p id="contador-nivel">Nivel: 0</p>
+    </div>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
     <script src="js/code.js"></script>
 </body>
